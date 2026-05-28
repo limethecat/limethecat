@@ -1,4 +1,4 @@
-## Hi there 👋
+## Is this a curse?
 
 <!--
 **limethecat/limethecat** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
