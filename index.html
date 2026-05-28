@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lime</title>
+    <title>Lime</title>
     <style>
-        body {
+body {
             margin: 0;
             font-family: sans-serif;
-            background: linear-gradient(135deg, #2b0b30, #5c0f1e);
+            background: linear-gradient(240deg, #2b0b30, #5c0f1e, #1a051d, #4a0c18);
+            background-size: 800% 800%;
+            animation: sivigibi 20s ease infinite;
             height: 100vh;
             color: white;
             display: flex;
             flex-direction: column;
+        }
+
+        @keyframes sivigibi {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         .top-bar {
             background: rgba(0, 0, 0, 0.2);
@@ -54,7 +62,7 @@
     </style>
 </head>
 <body>
-    <div class="top-bar">Lime</div>
+    <div class="top-bar">Lime The Cat</div>
     <div class="container">
         <div class="sidebar">
             <ul>
@@ -65,8 +73,8 @@
             </ul>
         </div>
         <div class="content">
-            <h2>Hoş geldin...</h2>
-            <p>Buralar şimdilik dutluk.</p>
+            <h2>Mekana hoş geldin.</h2>
+            <p>Buralar şimdilik inşaat halinde.</p>
         </div>
     </div>
 </body>
