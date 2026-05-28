@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIME THE CAT</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@900&family=Montserrat:wght@300;500;700&display=swap');
 
         body {
             margin: 0;
@@ -33,18 +33,31 @@
             gap: 20px;
         }
         .top-bar span {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 26px;
-            font-weight: 300;
-            letter-spacing: 5px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 2px;
             text-transform: uppercase;
             color: #ffffff;
+            transition: 0.3s ease;
+            cursor: default;
+        }
+        .top-bar span:hover {
+            color: #d4a5d4;
+            text-shadow: 0 0 10px rgba(212,165,212,0.6);
+            letter-spacing: 4px;
         }
         .makima {
             width: 48px;
             height: 48px;
             border-radius: 12px;
             object-fit: cover;
+            transition: 0.4s ease;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .makima:hover {
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 0 20px rgba(212,165,212,0.8);
         }
         .container {
             display: flex;
@@ -69,6 +82,7 @@
         }
         .sidebar li:hover {
             color: #d4a5d4;
+            transform: translateX(10px);
         }
         .content {
             flex: 1;
@@ -145,20 +159,20 @@
 <body>
     <div class="top-bar">
         <img src="images/makima.png" class="makima" alt="makima">
-        <span>LIME THE CAT</span>
+        <span>LIME</span>
     </div>
     <div class="container">
         <div class="sidebar">
             <ul>
-                <li>Ana Sayfa</li>
-                <li>Hakkımda</li>
-                <li>Projeler</li>
-                <li>İletişim</li>
+                <li>Main Page</li>
+                <li>About</li>
+                <li>Quick Abdest</li>
+                <li>Random Song Picker</li>
             </ul>
         </div>
         <div class="content">
-            <h2>Mekana Hoş Geldin.</h2>
-            <p>Buralar Şimdilik İnşaat Halinde.</p>
+            <h2>Welcome!</h2>
+            <p>- Everything that lives is designed to end. -</p>
         </div>
     </div>
 </body>
