@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lime</title>
+    <title>LIME THE CAT</title>
     <style>
-body {
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
+
+        body {
             margin: 0;
             font-family: sans-serif;
             background: linear-gradient(240deg, #2b0b30, #5c0f1e, #1a051d, #4a0c18);
@@ -16,7 +18,6 @@ body {
             display: flex;
             flex-direction: column;
         }
-
         @keyframes sivigibi {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -24,12 +25,26 @@ body {
         }
         .top-bar {
             background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            text-align: center;
-            font-size: 28px;
-            font-weight: bold;
+            padding: 15px 30px;
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .top-bar span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+        .makima {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
         }
         .container {
             display: flex;
@@ -58,23 +73,92 @@ body {
         .content {
             flex: 1;
             padding: 30px;
+            background-color: #000000;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .content::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('images/makima-arkaplan.jpg') center/cover;
+            opacity: 0;
+            z-index: 0;
+            animation: makimaGeliyor 2s ease-out forwards;
+        }
+        .content::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(240deg, #1f0724, #450b16, #120314, #370912);
+            background-size: 800% 800%;
+            -webkit-mask-image: radial-gradient(circle, transparent 40%, black 80%);
+            mask-image: radial-gradient(circle, transparent 40%, black 80%);
+            opacity: 0;
+            z-index: 1;
+            animation: vinyetGeliyor 2s ease-out forwards, sivigibi 20s ease infinite;
+        }
+        .content h2 {
+            position: relative;
+            z-index: 2;
+            margin: 10px 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(100vh);
+            animation: yaziKayiyor 0.8s cubic-bezier(0.1, 1, 0.2, 1) forwards;
+            animation-delay: 0.3s;
+        }
+        .content p {
+            position: relative;
+            z-index: 2;
+            margin: 10px 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-style: italic;
+            font-weight: 300;
+            opacity: 0;
+            transform: translateY(100vh);
+            animation: yaziKayiyor 0.8s cubic-bezier(0.1, 1, 0.2, 1) forwards;
+            animation-delay: 0.45s;
+        }
+        @keyframes makimaGeliyor {
+            to { opacity: 0.5; }
+        }
+        @keyframes vinyetGeliyor {
+            to { opacity: 0.85; }
+        }
+        @keyframes yaziKayiyor {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="top-bar">Lime The Cat</div>
+    <div class="top-bar">
+        <img src="images/makima.png" class="makima" alt="makima">
+        <span>LIME THE CAT</span>
+    </div>
     <div class="container">
         <div class="sidebar">
             <ul>
-                <li>Ana sayfa</li>
+                <li>Ana Sayfa</li>
                 <li>Hakkımda</li>
                 <li>Projeler</li>
                 <li>İletişim</li>
             </ul>
         </div>
         <div class="content">
-            <h2>Mekana hoş geldin.</h2>
-            <p>Buralar şimdilik inşaat halinde.</p>
+            <h2>Mekana Hoş Geldin.</h2>
+            <p>Buralar Şimdilik İnşaat Halinde.</p>
         </div>
     </div>
 </body>
