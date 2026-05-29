@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIME THE CAT</title>
+    <link rel="icon" type="image/png" href="images/makima.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@900&family=Montserrat:wght@300;500;700&display=swap');
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
             margin: 0;
@@ -17,6 +22,7 @@
             color: white;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
         @keyframes sivigibi {
             0% { background-position: 0% 50%; }
@@ -36,6 +42,19 @@
             display: flex;
             align-items: center;
             gap: 20px;
+            z-index: 10;
+        }
+        #hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.8);
+            font-size: 28px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #hamburger-btn:hover {
+            color: #d4a5d4;
         }
         .top-bar span {
             font-family: 'Outfit', sans-serif;
@@ -52,21 +71,24 @@
             text-shadow: 0 0 10px rgba(212,165,212,0.6);
             letter-spacing: 4px;
         }
-        .makima {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            object-fit: cover;
-            transition: 0.4s ease;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        
+        #flash-btn {
+            width: 56px; 
+            height: 56px;
+            object-fit: contain;
+            margin-left: auto;
+            cursor: pointer;
+            transition: 0.3s;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
         }
-        .makima:hover {
-            transform: scale(1.15) rotate(10deg);
-            box-shadow: 0 0 20px rgba(212,165,212,0.8);
+        #flash-btn:hover {
+            transform: scale(1.15) rotate(15deg);
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));
         }
         .container {
             display: flex;
             flex: 1;
+            position: relative;
         }
         .sidebar {
             width: 200px;
@@ -74,6 +96,11 @@
             padding: 20px;
             backdrop-filter: blur(10px);
             border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.4s cubic-bezier(0.1, 1, 0.2, 1);
+            z-index: 100;
         }
         .sidebar ul {
             list-style: none;
@@ -88,6 +115,21 @@
         .sidebar li:hover {
             color: #d4a5d4;
             transform: translateX(10px);
+        }
+        .sidebar-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .sidebar-footer {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            color: rgba(255,255,255,0.3);
+            text-align: center;
+            letter-spacing: 1px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+            line-height: 1.6;
         }
         .content {
             flex: 1;
@@ -122,7 +164,7 @@
             z-index: 1;
             animation: vinyetGeliyor 2s ease-out forwards, sivigibi 20s ease infinite;
         }
-        .content h2 {
+        .content h2, .content h3 {
             position: relative;
             z-index: 2;
             margin: 10px 0;
@@ -131,8 +173,8 @@
             font-weight: 700;
             opacity: 0;
             transform: translateY(100vh);
-            animation: yaziKayiyor 0.8s cubic-bezier(0.1, 1, 0.2, 1) forwards;
-            animation-delay: 0.3s;
+            animation: yaziKayiyor 0.5s cubic-bezier(0.1, 1, 0.2, 1) forwards;
+            animation-delay: 0.05s; 
         }
         .content p {
             position: relative;
@@ -144,8 +186,8 @@
             font-weight: 300;
             opacity: 0;
             transform: translateY(100vh);
-            animation: yaziKayiyor 0.8s cubic-bezier(0.1, 1, 0.2, 1) forwards;
-            animation-delay: 0.45s;
+            animation: yaziKayiyor 0.5s cubic-bezier(0.1, 1, 0.2, 1) forwards;
+            animation-delay: 0.15s; 
         }
         @keyframes makimaGeliyor {
             to { opacity: 0.5; }
@@ -177,7 +219,55 @@
             align-items: center;
             justify-content: center;
             gap: 28px;
+            width: 100%;
         }
+
+        #page-about {
+            display: none;
+            position: relative;
+            z-index: 2;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+        }
+        #about-img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid rgba(212,165,212,0.5);
+            box-shadow: 0 0 20px rgba(212,165,212,0.4);
+        }
+        #about-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: 2px;
+            color: #d4a5d4;
+            text-shadow: 0 0 10px rgba(212,165,212,0.5);
+            opacity: 0;
+            transform: translateY(100vh);
+            animation: yaziKayiyor 0.4s cubic-bezier(0.1, 1, 0.2, 1) forwards;
+        }
+        #about-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.85);
+            margin: 0;
+            opacity: 0;
+            transform: translateY(100vh);
+            animation: yaziKayiyor 0.4s cubic-bezier(0.1, 1, 0.2, 1) forwards;
+        }
+
         #song-pick-btn {
             font-family: 'Montserrat', sans-serif;
             font-size: 15px;
@@ -199,11 +289,17 @@
             transform: translateY(-2px);
         }
         #song-embed {
-            width: 560px;
-            max-width: 90%;
+            width: 100%;
+            max-width: 560px;
             border-radius: 12px;
             overflow: hidden;
             display: none;
+        }
+        #song-iframe {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
         }
         #abdest-btn {
             cursor: pointer;
@@ -231,12 +327,6 @@
             text-transform: uppercase;
         }
 
-
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
         #music-box {
             display: flex;
             flex-direction: column;
@@ -244,7 +334,6 @@
             border: 1px solid rgba(255,255,255,0.12);
             border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 20px;
             background: rgba(0,0,0,0.2);
         }
         #bg-toggle {
@@ -345,8 +434,9 @@
             border-radius: 14px;
             padding: 20px 28px;
             z-index: 9999;
-            width: 420px;
-            max-width: 90vw;
+            width: 90%; 
+            max-width: 420px;
+            box-sizing: border-box; 
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -399,32 +489,112 @@
             border-color: rgba(212,165,212,0.6);
             color: #d4a5d4;
         }
+
+        #flash-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: white;
+            z-index: 999999;
+            pointer-events: none;
+            opacity: 0;
+        }
+        .flashing {
+            animation: flashbang 2s cubic-bezier(0.1, 1, 0.2, 1) forwards;
+        }
+        @keyframes flashbang {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            #hamburger-btn {
+                display: block;
+            }
+            #flash-btn {
+                width: 42px;
+                height: 42px;
+            }
+            .sidebar {
+                position: fixed;
+                top: 87px; 
+                bottom: 0;
+                left: 0;
+                transform: translateX(-100%);
+                background: rgba(15, 0, 20, 0.95);
+                border-right: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .content h2 {
+                font-size: 32px;
+            }
+            .content p {
+                font-size: 18px;
+            }
+            .popup-btns {
+                flex-direction: column; 
+            }
+            .popup-btn {
+                width: 100%; 
+                text-align: center;
+            }
+            #page-about {
+                padding: 15px;
+            }
+            #about-title {
+                font-size: 26px;
+            }
+            #about-text {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
+    <div id="flash-overlay"></div>
     <audio id="bg-music" src="sounds/bg.m4a" loop></audio>
+    
     <div class="top-bar">
+        <button id="hamburger-btn">☰</button>
         <img src="images/lime.png" id="site-logo" alt="LIME">
+        <img src="images/flash.png" id="flash-btn" onclick="patlatFlash()" alt="Flashbang">
     </div>
+    
     <div class="container">
-        <div class="sidebar">
+        <div class="sidebar" id="mobile-sidebar">
             <ul>
                 <li id="menu-main">Ana sayfa</li>
-                <li id="menu-about">Hakkında</li>
+                <li id="menu-about">2B</li>
                 <li id="menu-abdest">Quick Abdest</li>
                 <li id="menu-song">Rastgele Şarkı Dinle</li>
             </ul>
-            <div id="music-box">
-                <button id="bg-toggle" onclick="toggleBg()">▐▌ müzik</button>
-                <div id="volume-wrapper">
-                    <input type="range" id="volume-slider" min="0" max="100" value="25">
-                    <span id="volume-label">ses: %<span id="volume-val">25</span></span>
+            <div class="sidebar-bottom">
+                <div id="music-box">
+                    <button id="bg-toggle" onclick="toggleBg()">▐▌ müzik</button>
+                    <div id="volume-wrapper">
+                        <input type="range" id="volume-slider" min="0" max="100" value="25">
+                        <span id="volume-label">ses: %<span id="volume-val">25</span></span>
+                    </div>
+                </div>
+                <div class="sidebar-footer">
+                    SYSTEM: ONLINE<br>
+                    GLORY TO MANKIND<br>
+                    VER: 1.0.4
                 </div>
             </div>
         </div>
         <div class="content">
             <h2 id="home-title">Hoşgeldin...</h2>
             <p id="home-subtitle">- Everything that lives is designed to end. -</p>
+
+            <div id="page-about">
+                <img src="images/2b.png" id="about-img" alt="2B">
+                <h3 id="about-title">YoRHa No.2 Type B</h3>
+                <p id="about-text">
+                    2B is an all-purpose battle android, deployed as a member of the automated YoRHa infantry. She is equipped with a multitude of weapons for close quarters combat and can attack from range using the Pod support system.
+                </p>
+            </div>
 
             <div id="page-abdest">
                 <div id="abdest-btn" onclick="abdestAl()">
@@ -443,7 +613,7 @@
             <div id="page-song">
                 <button id="song-pick-btn" onclick="rastgeleSarki()">🎵 rastgele şarkı</button>
                 <div id="song-embed">
-                    <iframe id="song-iframe" width="560" height="315" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:12px;"></iframe>
+                    <iframe id="song-iframe" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
             </div>
             <p id="disclaimer" style="display:none; position:absolute; bottom:16px; left:0; right:0; text-align:center; font-family:'Montserrat',sans-serif; font-size:11px; color:rgba(255,255,255,0.2); margin:0; z-index:3;">*Bu sayfa sadece eğlence amaçlıdır.</p>
@@ -455,9 +625,49 @@
     </a>
 
     <script>
+        var abdestSesi = null;
+        var abdestFade = null;
+        var aktifSayfa = 'home'; 
+
+        function patlatFlash() {
+            var ses = new Audio('sounds/flash.m4a');
+            ses.play();
+            var overlay = document.getElementById('flash-overlay');
+            overlay.classList.remove('flashing');
+            void overlay.offsetWidth; 
+            overlay.classList.add('flashing');
+        }
+
+        document.getElementById('hamburger-btn').addEventListener('click', function() {
+            document.getElementById('mobile-sidebar').classList.toggle('open');
+        });
+
         function showPage(page) {
+            aktifSayfa = page; 
+
+            document.getElementById('mobile-sidebar').classList.remove('open');
+
+            if (abdestSesi && !abdestSesi.paused) {
+                var sesSeviyesi = abdestSesi.volume;
+                var adim = sesSeviyesi / 20; 
+                
+                if (abdestFade) clearInterval(abdestFade);
+                
+                abdestFade = setInterval(function() {
+                    if (sesSeviyesi > adim) {
+                        sesSeviyesi -= adim;
+                        abdestSesi.volume = sesSeviyesi;
+                    } else {
+                        abdestSesi.volume = 0;
+                        abdestSesi.pause();
+                        clearInterval(abdestFade);
+                    }
+                }, 50);
+            }
+
             document.getElementById('home-title').style.display = 'none';
             document.getElementById('home-subtitle').style.display = 'none';
+            document.getElementById('page-about').style.display = 'none';
             document.getElementById('page-abdest').style.display = 'none';
             document.getElementById('page-song').style.display = 'none';
             document.getElementById('song-embed').style.display = 'none';
@@ -471,6 +681,8 @@
             if (page === 'home') {
                 document.getElementById('home-title').style.display = 'block';
                 document.getElementById('home-subtitle').style.display = 'block';
+            } else if (page === 'about') {
+                document.getElementById('page-about').style.display = 'flex';
             } else if (page === 'song') {
                 document.getElementById('page-song').style.display = 'flex';
                 document.getElementById('song-embed').style.display = 'none';
@@ -487,6 +699,7 @@
         }
 
         document.getElementById('menu-main').addEventListener('click', () => showPage('home'));
+        document.getElementById('menu-about').addEventListener('click', () => showPage('about'));
         document.getElementById('menu-abdest').addEventListener('click', () => showPage('abdest'));
         document.getElementById('menu-song').addEventListener('click', () => showPage('song'));
 
@@ -496,8 +709,13 @@
             document.getElementById('abdest-img').style.transform = 'scale(1.08)';
             document.getElementById('abdest-label').textContent = 'abdestlendin ✓';
             document.getElementById('abdest-btn').style.pointerEvents = 'none';
-            var ses = new Audio('sounds/abdest.m4a');
-            ses.play();
+            
+            if(abdestSesi) {
+                abdestSesi.pause();
+                abdestSesi.currentTime = 0;
+            }
+            abdestSesi = new Audio('sounds/abdest.m4a');
+            abdestSesi.play();
         }
 
         var sarkilar = [
@@ -562,7 +780,7 @@
         }
 
         function startBgMusic() {
-            if (bgManuallyStopped) return;
+            if (bgManuallyStopped || aktifSayfa === 'song') return; 
             if (bgMusic.paused) {
                 bgMusic.volume = 0;
                 bgMusic.play().catch(function(){});
@@ -593,11 +811,11 @@
                 bgFadeTo(0, 500);
             } else {
                 bgManuallyStopped = false;
-                if (bgMusic.paused) {
+                if (bgMusic.paused && aktifSayfa !== 'song') {
                     bgMusic.volume = 0;
                     bgMusic.play().catch(function(){});
                 }
-                bgFadeTo(bgMusic._targetVol, 500);
+                if (aktifSayfa !== 'song') bgFadeTo(bgMusic._targetVol, 500);
             }
         }
 
@@ -606,9 +824,8 @@
         });
 
         document.getElementById('menu-main').addEventListener('click', function() { startBgMusic(); });
+        document.getElementById('menu-about').addEventListener('click', function() { startBgMusic(); });
         document.getElementById('menu-abdest').addEventListener('click', function() { startBgMusic(); });
-
-
 
         var mesajlar = [
             "nihayet geldin. çok bekledik. hoş geldin.",
@@ -639,10 +856,12 @@
         function closePopup() {
             var popup = document.getElementById('welcome-popup');
             popup.style.transform = 'translateX(-50%) translateY(150%)';
-            if (!bgManuallyStopped) {
-                bgMusic.volume = 0;
-                bgMusic.play().catch(function(){});
-                bgFadeTo(bgMusic._targetVol || 0.25, 500);
+            if (!bgManuallyStopped && aktifSayfa !== 'song') { 
+                if (bgMusic.paused) {
+                    bgMusic.volume = 0;
+                    bgMusic.play().catch(function(){});
+                    bgFadeTo(bgMusic._targetVol || 0.25, 500);
+                }
             }
         }
 
